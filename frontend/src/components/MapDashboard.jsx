@@ -46,14 +46,13 @@ const createCustomMarker = (vehicle, isSelected) => {
       <div class="mt-1 px-1.5 py-0.5 rounded bg-slate-900/90 border border-slate-700 text-[10px] font-bold text-white shadow whitespace-nowrap">
         ${vehicle.vehicleId}
       </div>
-      ${
-        isTransit
-          ? `<span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+      ${isTransit
+      ? `<span class="absolute -top-1 -right-1 flex h-2.5 w-2.5">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>`
-          : ''
-      }
+      : ''
+    }
     </div>
   `;
 
@@ -157,7 +156,7 @@ export const MapDashboard = () => {
             {/* Dark Mode Tile Provider (CartoDB Dark Matter) */}
             <TileLayer
               attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-              url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
             <MapPanController center={mapCenter} />
@@ -271,20 +270,18 @@ export const MapDashboard = () => {
                 <button
                   key={v._id}
                   onClick={() => handleSelectVehicle(v)}
-                  className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all ${
-                    isSelected
-                      ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/25'
-                      : 'bg-slate-900/90 text-slate-300 hover:bg-slate-800 border border-slate-800'
-                  }`}
+                  className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all ${isSelected
+                    ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/25'
+                    : 'bg-slate-900/90 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                    }`}
                 >
                   <span
-                    className={`w-2 h-2 rounded-full ${
-                      v.status === 'In Transit'
-                        ? 'bg-emerald-400 animate-pulse'
-                        : v.status === 'Idle'
+                    className={`w-2 h-2 rounded-full ${v.status === 'In Transit'
+                      ? 'bg-emerald-400 animate-pulse'
+                      : v.status === 'Idle'
                         ? 'bg-amber-400'
                         : 'bg-rose-500'
-                    }`}
+                      }`}
                   />
                   <span>{v.vehicleId}</span>
                   <span className="text-[10px] opacity-75">{v.current_location.speed} km/h</span>
@@ -306,13 +303,12 @@ export const MapDashboard = () => {
                       {selectedVehicle.vehicleId}
                     </span>
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
-                        selectedVehicle.status === 'In Transit'
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                          : selectedVehicle.status === 'Idle'
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${selectedVehicle.status === 'In Transit'
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                        : selectedVehicle.status === 'Idle'
                           ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                           : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                      }`}
+                        }`}
                     >
                       {selectedVehicle.status}
                     </span>
@@ -364,9 +360,8 @@ export const MapDashboard = () => {
                   </div>
                   <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
                     <div
-                      className={`h-full transition-all duration-300 ${
-                        selectedVehicle.fuel_level < 25 ? 'bg-rose-500' : 'bg-emerald-400'
-                      }`}
+                      className={`h-full transition-all duration-300 ${selectedVehicle.fuel_level < 25 ? 'bg-rose-500' : 'bg-emerald-400'
+                        }`}
                       style={{ width: `${selectedVehicle.fuel_level}%` }}
                     ></div>
                   </div>
@@ -378,13 +373,12 @@ export const MapDashboard = () => {
                 <div className="p-2 rounded-xl bg-slate-900/90 border border-slate-800">
                   <span className="text-[10px] text-slate-400 block mb-1">Coolant Temp</span>
                   <span
-                    className={`font-mono font-bold text-sm ${
-                      selectedVehicle.diagnostics.engineTemperature >= 105
-                        ? 'text-rose-400 animate-pulse'
-                        : selectedVehicle.diagnostics.engineTemperature > 98
+                    className={`font-mono font-bold text-sm ${selectedVehicle.diagnostics.engineTemperature >= 105
+                      ? 'text-rose-400 animate-pulse'
+                      : selectedVehicle.diagnostics.engineTemperature > 98
                         ? 'text-amber-400'
                         : 'text-emerald-400'
-                    }`}
+                      }`}
                   >
                     {selectedVehicle.diagnostics.engineTemperature}°C
                   </span>
@@ -393,11 +387,10 @@ export const MapDashboard = () => {
                 <div className="p-2 rounded-xl bg-slate-900/90 border border-slate-800">
                   <span className="text-[10px] text-slate-400 block mb-1">Oil Life</span>
                   <span
-                    className={`font-mono font-bold text-sm ${
-                      selectedVehicle.diagnostics.oilLifePercentage < 20
-                        ? 'text-rose-400'
-                        : 'text-cyan-400'
-                    }`}
+                    className={`font-mono font-bold text-sm ${selectedVehicle.diagnostics.oilLifePercentage < 20
+                      ? 'text-rose-400'
+                      : 'text-cyan-400'
+                      }`}
                   >
                     {selectedVehicle.diagnostics.oilLifePercentage}%
                   </span>
@@ -406,11 +399,10 @@ export const MapDashboard = () => {
                 <div className="p-2 rounded-xl bg-slate-900/90 border border-slate-800">
                   <span className="text-[10px] text-slate-400 block mb-1">Battery</span>
                   <span
-                    className={`font-mono font-bold text-sm ${
-                      selectedVehicle.diagnostics.batteryVoltage < 11.8
-                        ? 'text-rose-400'
-                        : 'text-emerald-400'
-                    }`}
+                    className={`font-mono font-bold text-sm ${selectedVehicle.diagnostics.batteryVoltage < 11.8
+                      ? 'text-rose-400'
+                      : 'text-emerald-400'
+                      }`}
                   >
                     {selectedVehicle.diagnostics.batteryVoltage}V
                   </span>
@@ -461,11 +453,10 @@ export const MapDashboard = () => {
                   </div>
                 </div>
                 <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                    selectedVehicle.geofence?.isInside
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                      : 'bg-rose-500/20 text-rose-300 border border-rose-500/30 animate-pulse'
-                  }`}
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${selectedVehicle.geofence?.isInside
+                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                    : 'bg-rose-500/20 text-rose-300 border border-rose-500/30 animate-pulse'
+                    }`}
                 >
                   {selectedVehicle.geofence?.isInside ? 'Inside Perimeter' : 'PERIMETER BREACH'}
                 </span>
